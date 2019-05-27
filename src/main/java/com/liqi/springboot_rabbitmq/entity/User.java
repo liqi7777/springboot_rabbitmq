@@ -1,30 +1,54 @@
 package com.liqi.springboot_rabbitmq.entity;
 
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 /**
- * @Description:    DOTO
- * @Author:         Kevin
- * @CreateDate:     2019/4/16 20:55
- * @UpdateUser:     Kevin
- * @UpdateDate:     2019/4/16 20:55
- * @UpdateRemark:   修改内容
- * @Version: 1.0
+ * <p>
+ * <p>
+ * </p>
+ *
+ * @author liqi
+ * @since 2019-05-15
  */
 @Data
-@NoArgsConstructor
 public class User implements Serializable {
 
-    private String userName;
-    private int id;
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 主键ID
+     */
+    private Long id;
+
+    /**
+     * 姓名
+     */
+    private String name;
+
+    /**
+     * 年龄
+     */
+    private Integer age;
+
+    /**
+     * 邮箱
+     */
+    private String email;
+
+    private String aliasName;
+
+    private Integer isDelete;
+
     private String sex;
 
-    public User(String userName, int id, String sex) {
-        this.userName = userName;
-        this.id = id;
-        this.sex = sex;
-    }
+    /**
+     * 版本
+     */
+
+    private Integer version;
+
+
 }

@@ -24,7 +24,8 @@ public class MsgController {
      */
     @GetMapping("/helloRabbitMQ")
     public String sendMsg() {
-        producer.send("hello world!");
+//        producer.send("hello world!");
+        producer.sendDurable("hello liqi");
         //producer.sendOfFanout("hello!");
         //producer.sendOfTopic("hello topic!");
         return "success";

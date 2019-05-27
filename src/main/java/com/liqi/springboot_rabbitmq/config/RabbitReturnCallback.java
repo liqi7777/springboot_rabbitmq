@@ -18,7 +18,7 @@ public class RabbitReturnCallback implements RabbitTemplate.ReturnCallback {
 
     /**
      * 发送到队列失败后回调
-     * 消息可以发送到相应交换机，但是没有相应路由键和队列绑定
+     * 消息是没可以发送到相应交换机，但有相应路由键和队列绑定
      * @param message   返回消息
      * @param i         返回状态码
      * @param s         回复文本

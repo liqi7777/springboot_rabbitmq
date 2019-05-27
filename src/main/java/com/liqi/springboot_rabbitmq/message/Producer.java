@@ -1,5 +1,6 @@
 package com.liqi.springboot_rabbitmq.message;
 
+import com.alibaba.fastjson.JSONObject;
 import com.liqi.springboot_rabbitmq.config.direct.DirectKeyInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -17,8 +18,34 @@ public class Producer {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
+    /**
+     * 消息发送（direct模式）
+     *
+     * @param message
+     */
     public void send(String message) {
         rabbitTemplate.convertAndSend(DirectKeyInterface.DIRECT_EXCHANGE_NAME, DirectKeyInterface.DIRECT_KEY, message);
         log.info("消息发送成功：{}", message);
     }
+
+    /**
+     * 消息发送（direct模式）持久化
+     *
+     * @param message
+     */
+    public void sendDurable(String message) {
+        rabbitTemplate.convertAndSend(DirectKeyInterface.DIRECT_DURABLE_EXCHANGE_NAME, DirectKeyInterface.DIRECT_KEY, message);
+    }
+
+    /**
+     * 发送对象
+     *
+     * @param object
+     */
+    public void sendObject(Object object) {
+        String json = JSONObject.toJSONString(object);
+        rabbitTemplate.convertAndSend(DirectKeyInterface.DIRECT_EXCHANGE_NAME, DirectKeyInterface.DIRECT_KEY, json);
+    }
+
+
 }
