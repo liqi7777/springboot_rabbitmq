@@ -26,8 +26,8 @@ public class MsgController {
     public String sendMsg() {
 //        producer.send("hello world!");
 //        producer.sendDurable("hello liqi");
-        producer.sendOfFanout("hello!");
-        //producer.sendOfTopic("hello topic!");
+//        producer.sendOfFanout("hello!");
+        producer.sendOfTopic("hello topic!");
         return "success";
     }
 }

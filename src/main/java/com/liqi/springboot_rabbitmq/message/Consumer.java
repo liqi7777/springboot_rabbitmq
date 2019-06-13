@@ -2,6 +2,7 @@ package com.liqi.springboot_rabbitmq.message;
 
 import com.liqi.springboot_rabbitmq.config.direct.DirectKeyInterface;
 import com.liqi.springboot_rabbitmq.config.fanout.FanoutKeyInterface;
+import com.liqi.springboot_rabbitmq.config.topic.TopicKeyInterface;
 import com.liqi.springboot_rabbitmq.mapper.RegisterDao;
 import com.liqi.springboot_rabbitmq.utils.AckUtils;
 import com.rabbitmq.client.Channel;
@@ -72,6 +73,13 @@ public class Consumer {
     public void receiveFanoutB(String content, Channel channel, Message message) throws IOException {
         log.info("fanoutB-content:{}", content);
         log.info("fanoutB-message:{}", new String(message.getBody(), "utf-8"));
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+    }
+
+    @RabbitHandler
+    @RabbitListener(queues = TopicKeyInterface.TOPIC_QUEUE_NAME_A)
+    public void receiveTopicA(String content, Channel channel, Message message) throws IOException {
+        log.info("topicA-content:{}", content);
         channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
     }
 

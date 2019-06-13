@@ -3,6 +3,7 @@ package com.liqi.springboot_rabbitmq.message;
 import com.alibaba.fastjson.JSONObject;
 import com.liqi.springboot_rabbitmq.config.direct.DirectKeyInterface;
 import com.liqi.springboot_rabbitmq.config.fanout.FanoutKeyInterface;
+import com.liqi.springboot_rabbitmq.config.topic.TopicKeyInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,16 @@ public class Producer {
      */
     public void sendOfFanout(String message) {
         rabbitTemplate.convertAndSend(FanoutKeyInterface.FANOUT_EXCHANGE_NAME, FanoutKeyInterface.FANOUT_KEY, message);
+        log.info("消息发送成功：{}", message);
+    }
+
+    /**
+     * 消息发送（消息模糊广播）
+     *
+     * @param message
+     */
+    public void sendOfTopic(String message) {
+        rabbitTemplate.convertAndSend(TopicKeyInterface.TOPIC_EXCHANGE_NAME, TopicKeyInterface.TOPIC_KEY, message);
         log.info("消息发送成功：{}", message);
     }
 
