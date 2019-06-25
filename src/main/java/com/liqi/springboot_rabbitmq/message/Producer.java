@@ -1,6 +1,7 @@
 package com.liqi.springboot_rabbitmq.message;
 
 import com.alibaba.fastjson.JSONObject;
+import com.liqi.springboot_rabbitmq.config.delay.DelayKeyInterface;
 import com.liqi.springboot_rabbitmq.config.direct.DirectKeyInterface;
 import com.liqi.springboot_rabbitmq.config.fanout.FanoutKeyInterface;
 import com.liqi.springboot_rabbitmq.config.topic.TopicKeyInterface;
@@ -66,6 +67,16 @@ public class Producer {
      */
     public void sendOfTopic(String message) {
         rabbitTemplate.convertAndSend(TopicKeyInterface.TOPIC_EXCHANGE_NAME, TopicKeyInterface.TOPIC_KEY, message);
+        log.info("消息发送成功：{}", message);
+    }
+
+    /**
+     * 发送延时消息
+     *
+     * @param message
+     */
+    public void sendOfDelayMsg(String message) {
+        rabbitTemplate.convertAndSend(DelayKeyInterface.DELAY_QUEUE_NAME, message);
         log.info("消息发送成功：{}", message);
     }
 

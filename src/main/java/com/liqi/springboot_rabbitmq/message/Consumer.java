@@ -1,5 +1,6 @@
 package com.liqi.springboot_rabbitmq.message;
 
+import com.liqi.springboot_rabbitmq.config.delay.DelayKeyInterface;
 import com.liqi.springboot_rabbitmq.config.direct.DirectKeyInterface;
 import com.liqi.springboot_rabbitmq.config.fanout.FanoutKeyInterface;
 import com.liqi.springboot_rabbitmq.config.topic.TopicKeyInterface;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
@@ -81,6 +83,19 @@ public class Consumer {
     public void receiveTopicA(String content, Channel channel, Message message) throws IOException {
         log.info("topicA-content:{}", content);
         channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+    }
+
+
+    @RabbitHandler
+    @RabbitListener(queues = DelayKeyInterface.DELAYMSG_RECEIVE_QUEUE_NAME)
+    public void receiveDelayMsg(Channel channel, String json, Message message,@Headers Map<String,Object> map){
+
+        log.info("接收到的消息"+json);
+        log.info("接收时间："+ LocalDateTime.now());
+        //<P>代码为在消费者中开启消息接收确认的手动ack</p>
+        //<H>配置完成</H>
+        //<P>可以开启全局配置</p>
+        AckUtils.ack(channel,message,map);
     }
 
 

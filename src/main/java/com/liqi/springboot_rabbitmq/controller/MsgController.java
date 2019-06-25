@@ -1,10 +1,13 @@
 package com.liqi.springboot_rabbitmq.controller;
 
+import com.liqi.springboot_rabbitmq.config.delay.DelayKeyInterface;
 import com.liqi.springboot_rabbitmq.message.Producer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDateTime;
 
 /**
  * @author Sky
@@ -27,7 +30,10 @@ public class MsgController {
 //        producer.send("hello world!");
 //        producer.sendDurable("hello liqi");
 //        producer.sendOfFanout("hello!");
-        producer.sendOfTopic("hello topic!");
+//        producer.sendOfTopic("hello topic!");
+        producer.sendOfDelayMsg("hello,delayMsg");
         return "success";
     }
+
+
 }
