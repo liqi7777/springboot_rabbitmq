@@ -31,7 +31,8 @@ public class MsgController {
 //        producer.sendDurable("hello liqi");
 //        producer.sendOfFanout("hello!");
 //        producer.sendOfTopic("hello topic!");
-        producer.sendOfDelayMsg("hello,delayMsg");
+//         producer.sendOfDelayMsg("hello,delayMsg");
+        producer.sendOfDelayMsgPlugin("hello,delayMsgPlugin");
         return "success";
     }
 

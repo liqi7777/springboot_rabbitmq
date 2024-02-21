@@ -51,7 +51,7 @@ public class Consumer {
     public void receiveObjectDel(Channel channel, String json, Message message, @Headers Map<String, Object> map) {
 
         log.info("接收到的id：" + json);
-        int id = Integer.parseInt(json);
+        // int id = Integer.parseInt(json);
 //        registerDao.deleteUser(id);
         //<P>代码为在消费者中开启消息接收确认的手动ack</p>
         //<H>配置完成</H>
@@ -88,14 +88,27 @@ public class Consumer {
 
     @RabbitHandler
     @RabbitListener(queues = DelayKeyInterface.DELAYMSG_RECEIVE_QUEUE_NAME)
-    public void receiveDelayMsg(Channel channel, String json, Message message,@Headers Map<String,Object> map){
+    public void receiveDelayMsg(Channel channel, String json, Message message, @Headers Map<String, Object> map) {
 
-        log.info("接收到的消息"+json);
-        log.info("接收时间："+ LocalDateTime.now());
+        log.info("接收到的消息" + json);
+        log.info("接收时间：" + LocalDateTime.now());
         //<P>代码为在消费者中开启消息接收确认的手动ack</p>
         //<H>配置完成</H>
         //<P>可以开启全局配置</p>
-        AckUtils.ack(channel,message,map);
+        AckUtils.ack(channel, message, map);
+    }
+
+
+    @RabbitHandler
+    @RabbitListener(queues = DelayKeyInterface.DELAY_QUEUE_NAME_PLUGIN)
+    public void receiveDelayMsgPlugin(Channel channel, String json, Message message, @Headers Map<String, Object> map) {
+
+        log.info("接收到的消息" + json);
+        log.info("接收时间：" + LocalDateTime.now());
+        //<P>代码为在消费者中开启消息接收确认的手动ack</p>
+        //<H>配置完成</H>
+        //<P>可以开启全局配置</p>
+        AckUtils.ack(channel, message, map);
     }
 
 

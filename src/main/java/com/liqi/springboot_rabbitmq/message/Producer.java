@@ -80,5 +80,19 @@ public class Producer {
         log.info("消息发送成功：{}", message);
     }
 
+    /**
+     * 发送延时消息(延时插件模式)
+     *
+     * @param message
+     */
+    public void sendOfDelayMsgPlugin(String message) {
+        rabbitTemplate.convertAndSend(DelayKeyInterface.DELAY_EXCHANGE_PLUGIN, DelayKeyInterface.DELAY_KEY_PLUGIN, message, message1 -> {
+            //配置消息过期时间
+            message1.getMessageProperties().setDelay(10000);
+            return message1;
+        });
+        log.info("消息发送成功：{}", message);
+    }
+
 
 }
